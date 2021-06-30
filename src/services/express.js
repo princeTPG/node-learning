@@ -2,9 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-import { PORT } from '../config';
-
-import { errorHandler, successHandler } from '../utils/responseHandlers';
+import { successHandler } from '../utils/responseHandlers';
 
 const app = express();
 
@@ -13,15 +11,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.set('view engine', 'ejs');
 
-app.get('/status', async (req, res) => {
-  try {
-    successHandler(res, 'Status OK');
-  } catch (error) {
-    errorHandler(res, error);
-  }
-});
-
-export const startServer = (apiRouter, port = PORT) => {
+export const startServer = (apiRouter, port, processId) => {
+  app.get('/status', async (req, res) => {
+    successHandler(res, { message: `Status OK from cluster-worker ${processId}` });
+  });
   app.use('/', apiRouter);
 
   app.listen(port, (err) => {
@@ -32,7 +25,9 @@ export const startServer = (apiRouter, port = PORT) => {
     }
 
     // eslint-disable-next-line no-console
-    console.log(`Node Server is up at http://localhost:${port} port`);
+    console.log(
+      `Node Server is up for cluster-worker ${processId} at http://localhost:${port} port`,
+    );
   });
 };
 
