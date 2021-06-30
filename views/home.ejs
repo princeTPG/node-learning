@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <title>Short link</title>
+  </head>
+  <body class="d-flex">
+    <div class="container">
+      <div class="d-flex flex-column bd-highlight mb-3 mt-3">
+        <h1>Welcome to Short Link!™</h1>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <p>
+              Are you sick of posting URLs in emails only to have it break when sent causing the
+              recipient to have to cut and paste it back together? Then you've come to the right
+              place. By entering in a URL in the text field below, we will create a tiny URL that
+              <i><b>will not break in email postings </b></i> and <i><b>never expires</b></i
+              >.
+            </p>
+          </div>
+          <form action="/addLink" method="POST" class="form col-sm-8">
+            <label for="link" class="sr-only">Full Url</label>
+            <input
+              required
+              type="url"
+              name="link"
+              id="link"
+              placeholder="Url"
+              class="form-control col"
+            />
+            <label for="expireIn" class="sr-only">Time Expire</label>
+            <input
+              type="number"
+              name="expireIn"
+              id="expireIn"
+              placeholder="short-link expire time (in seconds) (optional)"
+              class="form-control col mt-3"
+            />
+            <label for="uid" class="sr-only">unique-id for tiny-URL</label>
+            <input
+              name="uid"
+              id="uid"
+              placeholder="unique-id for tiny-URL (optional)"
+              class="form-control col mt-3"
+            />
+            <button type="submit" class="btn btn-success mt-3 col-3">Make Tiny-Url</button>
+          </form>
+        </div>
+      </div>
+      <% if (shortLink) { %>
+      <div class="container alert alert-success mt-3">
+        <h3>TinyURL was created!</h3>
+        <div class="d-flex align-items-center">
+          <a href="<%= shortLink%>" target="_blank" class="d-flex col-sm-6 mr-2">
+            <h5 id="my_tiny_link" class="mb-0"><%= shortLink %></h5>
+          </a>
+          <button type="submit" class="btn-sm btn-primary mt-3 col-3" onClick="copyToClipBoard()">
+            Copy to clipboard
+          </button>
+        </div>
+      </div>
+      <%}%> <% if (message) { %>
+      <div class="container alert alert-danger mt-3">
+        <h3><%= message %></h3>
+      </div>
+      <%}%>
+    </div>
+    <!-- ------------------ copy to clipboard JS ------------------  -->
+    <script>
+      function copyToClipBoard() {
+        const copyText = document.getElementById('my_tiny_link').innerHTML;
+        const el = document.createElement('textarea');
+        el.value = copyText;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        alert(`"${copyText}" is Successfully copied to clipboard.`);
+      }
+    </script>
+    <!-- ------------------ copy to clipboard JS ------------------  -->
+  </body>
+</html>
