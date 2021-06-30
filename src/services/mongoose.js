@@ -27,6 +27,7 @@ export const mongooseConnect = () => {
     keepAlive: 1,
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
   });
 
   return mongoose.connection;
