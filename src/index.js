@@ -9,6 +9,7 @@ import { PORT } from './config';
 import { errorHandler, successHandler } from './utils/responseHandlers';
 import urlRouter from './api/url/urlRoutes';
 import analyticsRouter from './api/analytics/analyticsRoutes';
+import workerApisRouter from './api/workerApis/routes';
 
 const app = express();
 mongooseConnect();
@@ -27,6 +28,7 @@ app.get('/status', async (req, res) => {
 });
 app.use('/', urlRouter);
 app.use('/analytics', analyticsRouter);
+app.use('/worker', workerApisRouter);
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console

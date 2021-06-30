@@ -14,7 +14,8 @@ mongoose.connection.on('error', (err) => {
 });
 
 if (ENV === 'dev') {
-  mongoose.set('debug', true);
+  /** uncomment this to see logs for each mongo operation performed */
+  // mongoose.set('debug', true);
 }
 
 /**
