@@ -1,15 +1,14 @@
 import mongoose from 'mongoose';
 import { MONGO_URI, ENV, EnvironmentsEnum } from '../constants/environments';
+import logger from '../utils/logger';
 
 mongoose.Promise = Promise;
 
 mongoose.connection.on('connected', () => {
-  // eslint-disable-next-line no-console
-  console.log('MongoDB is connected to :- ', MONGO_URI);
+  logger.info('MongoDB is connected to :- ', MONGO_URI);
 });
 mongoose.connection.on('error', (err) => {
-  // eslint-disable-next-line no-console
-  console.log(`Could not connect to MongoDB because of ${err}`);
+  logger.info(`Could not connect to MongoDB because of ${err}`);
   process.exit(1);
 });
 

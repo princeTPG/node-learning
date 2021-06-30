@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 
 import { successHandler } from '../utils/responseHandlers';
+import logger from '../utils/logger';
 
 const app = express();
 
@@ -19,13 +20,11 @@ export const startServer = (apiRouter, port, processId) => {
 
   app.listen(port, (err) => {
     if (err) {
-      // eslint-disable-next-line no-console
-      console.log(`Error : ${err}`);
+      logger.info(`Error : ${err}`);
       process.exit(-1);
     }
 
-    // eslint-disable-next-line no-console
-    console.log(
+    logger.info(
       `Node Server is up for cluster-worker ${processId} at http://localhost:${port} port`,
     );
   });
