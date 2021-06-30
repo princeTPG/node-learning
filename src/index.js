@@ -4,7 +4,7 @@ import { mongooseConnect } from './services/mongoose';
 import { startServer } from './services/express';
 
 import router from './api';
-import { PORT } from './config';
+import { PORT } from './constants/environments';
 
 const totalNumOfCPUs = OS.cpus().length;
 const processId = process.pid;

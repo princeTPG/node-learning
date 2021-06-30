@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
-import { MONGO_URI, ENV } from '../config';
+import { MONGO_URI, ENV, EnvironmentsEnum } from '../constants/environments';
 
 mongoose.Promise = Promise;
 
 mongoose.connection.on('connected', () => {
   // eslint-disable-next-line no-console
-  console.log('MongoDB is connected');
+  console.log('MongoDB is connected to :- ', MONGO_URI);
 });
 mongoose.connection.on('error', (err) => {
   // eslint-disable-next-line no-console
@@ -13,9 +13,9 @@ mongoose.connection.on('error', (err) => {
   process.exit(1);
 });
 
-if (ENV === 'dev') {
+if (ENV === EnvironmentsEnum.DEV) {
   /** uncomment this to see logs for each mongo operation performed */
-  // mongoose.set('debug', true);
+  mongoose.set('debug', true);
 }
 
 /**

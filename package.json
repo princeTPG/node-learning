@@ -6,8 +6,9 @@
   "main": "./src/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 --cache src",
-    "start": "node -r esm src/index.js",
-    "dev": "nodemon -r esm src/index.js"
+    "start:dev": "node -r esm -r dotenv/config src/index.js dotenv_config_path=./.env.dev",
+    "start:prod": "node -r esm -r dotenv/config src/index.js dotenv_config_path=./.env.prod",
+    "dev": "nodemon -r dotenv/config -r esm src/index.js dotenv_config_path=./.env.dev"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -21,6 +22,7 @@
     "shortid": "^2.2.16"
   },
   "devDependencies": {
+    "dotenv": "^10.0.0",
     "eslint": "^7.29.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.4",

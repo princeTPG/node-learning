@@ -1,5 +1,5 @@
 import get from 'lodash/get';
-import { DOMAIN, SHORT_LINK_EXPIRE_DURATION } from '../../config';
+import { DOMAIN, SHORT_LINK_EXPIRE_DURATION } from '../../constants/environments';
 
 import urlModel from './urlModel';
 import { getShortUniqueId } from '../../utils/shortId';
