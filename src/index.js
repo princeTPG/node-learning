@@ -1,5 +1,5 @@
 import cluster from 'cluster';
-import OS from 'os';
+// import os from 'os';
 import { mongooseConnect } from './services/mongoose';
 import { startServer } from './services/express';
 
@@ -7,7 +7,7 @@ import router from './api';
 import { PORT } from './constants/environments';
 import logger from './utils/logger';
 
-const totalNumOfCPUs = OS.cpus().length;
+const totalNumOfCPUs = 1; // os.cpus().length;
 const processId = process.pid;
 
 if (cluster.isMaster) {
